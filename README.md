@@ -1,8 +1,8 @@
 # Read_Book
 Read_Book is an application which tracks and transfers user's books into different shelves.
 
-# install
+# Install
 $ npm install
 
-# run
+# Run
 $ npm start
