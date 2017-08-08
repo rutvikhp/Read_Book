@@ -44,7 +44,6 @@ class SearchBooks extends Component {
                       <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                         <div className="book-shelf-changer">
-                          {console.log(book.shelf)}
                           <select value = {book.shelf} onChange={(event) =>onChange(book, event.target.value)}>
                             <option value="Move to">Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
@@ -55,8 +54,8 @@ class SearchBooks extends Component {
                         </div>
                       </div>
                       <div className="book-title">{book.title}</div>
-                      <div className="book-authors">{book.authors && (book.authors.map((author)=>(
-                        <div>{author}</div>
+                      <div className="book-authors">{book.authors && (book.authors.map((author,i)=>(
+                        <div key={i}>{author}</div>
                       )))}</div>
                     </div>
                   </li>

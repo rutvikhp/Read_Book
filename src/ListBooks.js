@@ -6,8 +6,41 @@ import './App.css'
 
 class ListBooks extends Component {
 
+bookOnShelf = (shelfTitle) => {
+  return(
+    <ol className="books-grid">
+      {this.props.books.map((book)=>(
+        <div key={book.id}>
+          {book.shelf == shelfTitle &&(
+            <li>
+              <div className="book">
+                <div className="book-top">
+                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                  <div className="book-shelf-changer">
+                    <select value = {book.shelf} onChange={(event) =>this.props.onChange(book, event.target.value)}>
+                      <option value="none" disabled>Move to...</option>
+                      <option value="currentlyReading">Currently Reading</option>
+                      <option value="wantToRead">Want to Read</option>
+                      <option value="read">Read</option>
+                      <option value="none">None</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="book-title">{book.title}</div>
+                <div className="book-authors">{book.authors && (book.authors.map((author,i)=>(
+                  <div key={i}>{author}</div>
+                  )))}
+                </div>
+              </div>
+            </li>
+          )}
+        </div>
+        ))}
+    </ol>
+  )
+}
+
   render(){
-    const {books, onChange} = this.props
     return(
       <div className="app">
       <div className="list-books">
@@ -16,105 +49,21 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
             <div className="bookshelf">
-
-
               <h2 className="bookshelf-title">Currently Reading</h2>
-              {books.map((book)=>(
-                <div>
-                  {book.shelf == "currentlyReading" &&(
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-                        <li>
-                          <div className="book">
-                            <div className="book-top">
-                              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                              <div className="book-shelf-changer">
-                                <select value = {book.shelf} onChange={(event) =>onChange(book, event.target.value)}>
-                                  <option value="none" disabled>Move to...</option>
-                                  <option value="currentlyReading">Currently Reading</option>
-                                  <option value="wantToRead">Want to Read</option>
-                                  <option value="read">Read</option>
-                                  <option value="none">None</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div className="book-title">{book.title}</div>
-                            <div className="book-authors">{book.authors && (book.authors.map((author)=>(
-                              <div>{author}</div>
-                            )))}</div>
-                          </div>
-                        </li>
-                      </ol>
-                    </div>
-                  )}
-                </div>
-              ))}
-
+              <div className="bookshelf-books">
+                {this.bookOnShelf("currentlyReading")}
+              </div>
 
               <h2 className="bookshelf-title">Want to Read</h2>
-              {books.map((book)=>(
-                <div>
-                  {book.shelf == "wantToRead" &&(
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-                        <li>
-                          <div className="book">
-                            <div className="book-top">
-                              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                              <div className="book-shelf-changer">
-                                <select value = {book.shelf} onChange={(event) =>onChange(book, event.target.value)}>
-                                  <option value="none" disabled>Move to...</option>
-                                  <option value="currentlyReading">Currently Reading</option>
-                                  <option value="wantToRead">Want to Read</option>
-                                  <option value="read">Read</option>
-                                  <option value="none">None</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div className="book-title">{book.title}</div>
-                            <div className="book-authors">{book.authors && (book.authors.map((author)=>(
-                              <div>{author}</div>
-                            )))}</div>
-                          </div>
-                        </li>
-                      </ol>
-                    </div>
-                  )}
-                </div>
-              ))}
+              <div className="bookshelf-books">
+                {this.bookOnShelf("wantToRead")}
+              </div>
 
 
               <h2 className="bookshelf-title">Read</h2>
-              {books.map((book)=>(
-                <div>
-                  {book.shelf == "read" &&(
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-                        <li>
-                          <div className="book">
-                            <div className="book-top">
-                              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                              <div className="book-shelf-changer">
-                                <select value = {book.shelf} onChange={(event) =>onChange(book, event.target.value)}>
-                                  <option value="none" disabled>Move to...</option>
-                                  <option value="currentlyReading">Currently Reading</option>
-                                  <option value="wantToRead">Want to Read</option>
-                                  <option value="read">Read</option>
-                                  <option value="none">None</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div className="book-title">{book.title}</div>
-                            <div className="book-authors">{book.authors && (book.authors.map((author)=>(
-                              <div>{author}</div>
-                            )))}</div>
-                          </div>
-                        </li>
-                      </ol>
-                    </div>
-                  )}
-                </div>
-              ))}
+              <div className="bookshelf-books">
+                {this.bookOnShelf("read")}
+              </div>
             </div>
         </div>
         <div className = 'open-search'>
